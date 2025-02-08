@@ -1,54 +1,35 @@
-import React from 'react'
-import {Card,CardContent,Typography,Grid} from '@material-ui/core'
-import CountUp from 'react-countup'
-import cx from 'classnames'
+import React from 'react';
+import { Grid } from '@material-ui/core';
+import { Typography, Grid } from '@material-ui/core';
+import CardComponent from './Card/Card';
+import styles from './Cards.module.css';
 
-import styles from './Cards.module.css'
+@@ -11,27 +10,28 @@
 
-const Cards=({data:{confirmed,recovered,deaths,lastUpdate}})=>{
-    if (!confirmed){
-        return "Loding..."
-    }
-
-    return (
-        <div className={styles.container}>
-            <Grid container spacing={3} justify="center">
-                <Grid item component={Card} xs={12} md={3} className={cx(styles.card,styles.infected)}>
-                    <CardContent>
-                        <Typography color='textSecondary' gutterBottom>Infected</Typography>
-                        <Typography varaint='h5'>
-                            <CountUp start={0} end={confirmed.value} duration={3} separator=','/>
-                        </Typography> 
-
-                        <Typography color="textSecondary">{new Date(lastUpdate).toDateString()}</Typography>
-                        <Typography varaint='body2'>Number of active case of covid-19</Typography>
-                    </CardContent>
-                </Grid>
-
-                <Grid item component={Card}  xs={12} md={3} className={cx(styles.card,styles.recovered)}>
-                    <CardContent>
-                        <Typography color='textSecondary' gutterBottom>Recovered</Typography>
-                        <Typography varaint='h5'>
-                            <CountUp start={0} end={recovered.value} duration={3} separator=','/>
-                        </Typography> 
-                        <Typography color="textSecondary">{new Date(lastUpdate).toDateString()}</Typography>
-                        <Typography varaint='body2'>Number of Recoveries of covid-19</Typography>
-                    </CardContent>
-                </Grid>
-
-                <Grid item component={Card}  xs={12} md={3} className={cx(styles.card,styles.deaths)}>
-                    <CardContent>
-                        <Typography color='textSecondary' gutterBottom>Deaths</Typography>
-                        <Typography varaint='h5'>
-                            <CountUp start={0} end={deaths.value} duration={3} separator=','/>
-                        </Typography> 
-                        <Typography color="textSecondary">{new Date(lastUpdate).toDateString()}</Typography>
-                        <Typography varaint='body2'>Number of Deaths due to covid-19</Typography>
-                    </CardContent>
-                </Grid>
-            </Grid>
-        </div>
-    )
-}
-
-export default Cards
+  return (
+    <div className={styles.container}>
+        <Typography gutterBottom variant="h4" component="h2">Global</Typography>
+      <Grid container spacing={3} justify="center">
+        <CardComponent
+          className={styles.infected}
+          cardTitle="Infected"
+          value={confirmed.value}
+          lastUpdate={lastUpdate}
+          cardSubtitle="Number of active cases from COVID-19."
+        />
+        <CardComponent
+          className={styles.recovered}
+          cardTitle="Recovered"
+          value={recovered.value}
+          lastUpdate={lastUpdate}
+          cardSubtitle="Number of recoveries from COVID-19."
+        />
+        <CardComponent
+          className={styles.deaths}
+          cardTitle="Deaths"
+          value={deaths.value}
+          lastUpdate={lastUpdate}
+          cardSubtitle="Number of deaths caused by COVID-19."
+        />
+      </Grid>
+    </div>
